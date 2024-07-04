@@ -1,11 +1,11 @@
 import re
 
-def search(array, word):
-    if array == []:
-        return []
+def search(documents, query):
     result = []
-    for i in array:
-        if re.search(r'\b{}\b'.format(word), i['text']):
-            result.append(i['id'])
+    for doc in documents:
+        pattern = r'\b{}\b'.format(re.escape(query.strip('!?.,')))
+        matches = re.findall(pattern, doc['text'].lower())
+        if matches:
+            result.append(doc['id'])
     return result
-        
+
